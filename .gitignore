@@ -49,5 +49,3 @@ scratch/
 
 # Large datasets and model checkpoints
 household_power_consumption.csv
-models/*.pkl
-models/test_results.pkl

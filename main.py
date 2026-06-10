@@ -258,8 +258,8 @@ tscv_meta = TimeSeriesSplit(n_splits=5)
 # --- Tune Random Forest ---
 print("\n[6.1] Tuning RandomForestRegressor (n_iter=5)...")
 rf_param_grid = {
-    'n_estimators':    [200, 300, 500],
-    'max_depth':       [10, 20, 30, None],
+    'n_estimators':    [50, 100],
+    'max_depth':       [8, 12],
     'min_samples_split': [2, 5, 10],
     'min_samples_leaf':  [1, 2, 4],
     'max_features':    ['sqrt', 'log2', 0.5],
