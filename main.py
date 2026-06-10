@@ -259,9 +259,9 @@ tscv_meta = TimeSeriesSplit(n_splits=5)
 print("\n[6.1] Tuning RandomForestRegressor (n_iter=5)...")
 rf_param_grid = {
     'n_estimators':    [50, 100],
-    'max_depth':       [8, 12],
-    'min_samples_split': [2, 5, 10],
-    'min_samples_leaf':  [1, 2, 4],
+    'max_depth':       [8, 10, 12],
+    'min_samples_split': [5, 10],
+    'min_samples_leaf':  [2, 4],
     'max_features':    ['sqrt', 'log2', 0.5],
 }
 rf_search = RandomizedSearchCV(
@@ -282,11 +282,11 @@ print(f"  Best RF CV R²: {rf_search.best_score_:.4f}")
 # --- Tune Gradient Boosting ---
 print("\n[6.2] Tuning GradientBoostingRegressor (n_iter=5)...")
 gb_param_grid = {
-    'n_estimators':      [200, 300, 500],
-    'max_depth':         [3, 5, 7],
-    'learning_rate':     [0.01, 0.05, 0.1],
-    'subsample':         [0.7, 0.8, 1.0],
-    'min_samples_split': [2, 5, 10],
+    'n_estimators':      [50, 100],
+    'max_depth':         [3, 5],
+    'learning_rate':     [0.05, 0.1],
+    'subsample':         [0.8, 1.0],
+    'min_samples_split': [5, 10],
 }
 gb_search = RandomizedSearchCV(
     GradientBoostingRegressor(random_state=42),

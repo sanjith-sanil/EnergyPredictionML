@@ -47,5 +47,5 @@ Thumbs.db
 # Scratch testing directory
 scratch/
 
-# Large datasets and model checkpoints
+# Large datasets
 household_power_consumption.csv
