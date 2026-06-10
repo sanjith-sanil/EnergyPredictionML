@@ -136,3 +136,29 @@ Due to the physical linear relationship between active power, voltage, and curre
 * **Exploratory Data View**: Includes full summary statistics and displays time series, distribution, correlation heatmaps, and seasonal averages.
 * **Performance View**: Summarizes model metrics side-by-side.
 * **Predict View**: Includes a 7-parameter prediction form, a dynamic LaTeX formula viewer, and a step-by-step contribution breakdown table showing exactly how each variable influenced the forecast.
+
+---
+
+## Quick Start Run Commands
+
+Here is the quick sequence of commands to get the project up and running locally:
+
+```bash
+# 1. Clone and enter the project folder
+git clone https://github.com/sanjith-sanil/EnergyPredictionML.git
+cd EnergyPredictionML
+
+# 2. Create and activate a Python virtual environment
+python -m venv .venv
+.venv\Scripts\activate  # On macOS/Linux use: source .venv/bin/activate
+
+# 3. Install required packages
+pip install -r requirements.txt
+
+# 4. Place household_power_consumption.csv into this folder, then run the ML pipeline
+python main.py
+
+# 5. Start the FastAPI backend server
+python -m uvicorn app:app --port 8000
+```
+Once started, open your web browser and navigate to **`http://localhost:8000`** to view the application!
