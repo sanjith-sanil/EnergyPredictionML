@@ -257,70 +257,7 @@ document.addEventListener("DOMContentLoaded", function () {
             levelIcon.textContent = icon;
             levelCard.style.borderLeft = `6px solid ${color}`;
 
-            // Render LaTeX formula using KaTeX
-            const latexMath = document.getElementById("latex-formula-math");
-            try {
-                katex.render(data.formula_latex, latexMath, {
-                    throwOnError: false,
-                    displayMode: true
-                });
-            } catch (err) {
-                latexMath.textContent = data.formula_latex;
-            }
 
-            // Populate Step-by-Step Calculation Table
-            const calcBody = document.getElementById("calculation-table-body");
-            calcBody.innerHTML = "";
-            
-            data.calculation_steps.forEach(step => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td><strong>${step.feature}</strong></td>
-                    <td>${step.raw_value.toFixed(2)}</td>
-                    <td>${step.mean.toFixed(2)}</td>
-                    <td>${step.std.toFixed(2)}</td>
-                    <td>${step.scaled.toFixed(4)}</td>
-                    <td>${step.weight.toFixed(4)}</td>
-                    <td class="${step.contribution >= 0 ? 'text-success' : 'text-danger'}">${step.contribution.toFixed(4)}</td>
-                `;
-                calcBody.appendChild(row);
-            });
-
-            // Populate summation box
-            const sumBox = document.getElementById("math-summation-box");
-            sumBox.innerHTML = `
-                <strong>Mathematical Summation:</strong><br>
-                • Intercept (β₀): <code>${data.intercept.toFixed(6)}</code><br>
-                • Sum of Contributions (∑ β_i * X_i): <code>${data.sum_contributions.toFixed(6)}</code><br>
-                • <strong>Final Equation Output:</strong> β₀ + ∑ β_i * X_i = <strong>${data.sum_pred.toFixed(4)} kW</strong> (matches model output exactly)
-            `;
-
-            // Simple language explanation
-            const explBlock = document.getElementById("explanation-text-block");
-            explBlock.innerHTML = `
-                <p><em>"Hey trained model, use these input values and predict the electricity usage."</em></p>
-                <p><strong>Here is what the model is doing:</strong></p>
-                <ul>
-                    <li>It takes the <strong>Current Intensity</strong> (<code>${inputs.current_intensity.toFixed(1)} A</code>) and **Voltage** (<code>${inputs.voltage.toFixed(1)} V</code>) as the core predictors. Because power is physically computed from current and voltage, this provides the model with the physical baseline.</li>
-                    <li>It uses the <strong>Consumption 1 Hour Ago</strong> (<code>${inputs.lag_1.toFixed(2)} kW</code>) and <strong>24 Hours Ago</strong> (<code>${inputs.lag_24.toFixed(2)} kW</code>) to check recent historical usage.</li>
-                    <li>It adjusts for <strong>Hour of Day</strong> (<code>${inputs.hour}:00</code>) and <strong>Temperature</strong> (<code>${inputs.temperature.toFixed(1)} °C</code>) to capture minor seasonal adjustments, outputting a highly accurate predicted consumption value of <strong>${prediction.toFixed(4)} kW</strong>.</li>
-                </ul>
-            `;
-
-            // Populate validation comparison table
-            const valBody = document.getElementById("validation-table-body");
-            valBody.innerHTML = "";
-            
-            data.validation_samples.forEach(sample => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td><strong>${sample.date}</strong></td>
-                    <td>${sample.actual.toFixed(4)}</td>
-                    <td>${sample.predicted.toFixed(4)}</td>
-                    <td>${sample.error.toFixed(4)}</td>
-                `;
-                valBody.appendChild(row);
-            });
         })
         .catch(err => {
             console.error("Error executing prediction:", err);

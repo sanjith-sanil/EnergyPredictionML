@@ -451,76 +451,7 @@
                         </div>
                     </div>
 
-                    <!-- LaTeX mathematical equation -->
-                    <div class="card mt-20">
-                        <h2 class="section-title"><i class="fa-solid fa-calculator"></i> 🧠 How the Model Thinks (Under the Hood)</h2>
-                        <p class="mb-15">During training, the model learns a mathematical equation. For our selected best model (Linear Regression), the calculations follow this exact formula:</p>
-                        
-                        <div class="latex-container" id="latex-formula-math">
-                            <!-- Rendered by KaTeX inside script.js -->
-                        </div>
-                        
-                        <p class="sub-text mt-15">
-                            <strong>Note:</strong> The input features ($X_i$) are in the <em>scaled space</em> (centered around the training mean and normalized by the standard deviation) so that features with different units do not bias the weights.
-                        </p>
-                    </div>
 
-                    <!-- Step-by-Step Calculation Table -->
-                    <div class="card mt-20">
-                        <h2 class="section-title"><i class="fa-solid fa-list-numeric"></i> 🔢 Step-by-Step Calculation</h2>
-                        <div class="table-container">
-                            <table id="calculation-table">
-                                <thead>
-                                    <tr>
-                                        <th>Feature Name</th>
-                                        <th>Raw Input (Value)</th>
-                                        <th>Scaling Mean</th>
-                                        <th>Scaling Std</th>
-                                        <th>Scaled Input (X_i)</th>
-                                        <th>Weight (β_i)</th>
-                                        <th>Contribution (β_i * X_i)</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="calculation-table-body">
-                                    <!-- Populated by JS -->
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <div class="math-sum-box" id="math-summation-box">
-                            <!-- Summation details populated by JS -->
-                        </div>
-                    </div>
-
-                    <!-- Simple Language Explanation -->
-                    <div class="card mt-20">
-                        <h2 class="section-title"><i class="fa-solid fa-message"></i> 💬 What does this mean? (Simple language)</h2>
-                        <blockquote class="explanation-quote" id="explanation-text-block">
-                            <!-- Populated by JS -->
-                        </blockquote>
-                    </div>
-
-                    <!-- Compare with Actual Answer -->
-                    <div class="card mt-20">
-                        <h2 class="section-title"><i class="fa-solid fa-bullseye"></i> 🎯 Next Step — Compare with Actual Answer</h2>
-                        <p class="mb-15">To test if the model is accurate, we run predictions on unseen historical days and compare them directly against the actual smart meter readings recorded on those days.</p>
-                        
-                        <div class="table-container">
-                            <table id="validation-comparison-table">
-                                <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Actual Reading (kW)</th>
-                                        <th>Predicted Value (kW)</th>
-                                        <th>Absolute Error (kW)</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="validation-table-body">
-                                    <!-- Populated by JS -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
 
                 </div>
             </section>
