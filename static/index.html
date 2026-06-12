@@ -321,6 +321,31 @@
                     </div>
                 </div>
 
+                <div class="card mt-20">
+                    <h2 class="section-title"><i class="fa-solid fa-calculator"></i> 🧠 How Accuracy & Metrics are Calculated</h2>
+                    <p class="mb-15">The performance and prediction correctness of each machine learning model are calculated on the test set using the following standard statistical regression metrics:</p>
+                    
+                    <div class="feature-insights-text">
+                        <ol style="margin-left: 20px; display: flex; flex-direction: column; gap: 20px;">
+                            <li>
+                                <strong>Prediction Accuracy (%)</strong>:
+                                <p class="mb-10">Calculated as the complement of the Mean Absolute Percentage Error (MAPE). This expresses how close the predictions are to the actual values on a 0–100% scale (where 100% is a perfect forecast):</p>
+                                <div id="latex-accuracy-formula" class="latex-container" style="background-color: var(--bg-primary); padding: 15px; border-radius: 8px; margin: 10px 0; text-align: center; overflow-x: auto;"></div>
+                            </li>
+                            <li>
+                                <strong>R² Score (Coefficient of Determination)</strong>:
+                                <p class="mb-10">Measures the proportion of variance in electricity consumption captured and explained by the model features. An R² of 1.0 (100%) means the model perfectly explains all consumption fluctuations:</p>
+                                <div id="latex-r2-formula" class="latex-container" style="background-color: var(--bg-primary); padding: 15px; border-radius: 8px; margin: 10px 0; text-align: center; overflow-x: auto;"></div>
+                            </li>
+                            <li>
+                                <strong>Mean Absolute Error (MAE)</strong>:
+                                <p class="mb-10">The average absolute difference between the actual readings and predicted values. It tells us, on average, how many kilowatts (kW) our forecasts are off by:</p>
+                                <div id="latex-mae-formula" class="latex-container" style="background-color: var(--bg-primary); padding: 15px; border-radius: 8px; margin: 10px 0; text-align: center; overflow-x: auto;"></div>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
             </section>
             
             <!-- SECTION 4: PREDICT CONSUMPTION -->

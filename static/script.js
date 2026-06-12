@@ -157,6 +157,27 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("stat-median").textContent = "0.5519";
             document.getElementById("stat-75").textContent = "1.4578";
             document.getElementById("stat-max").textContent = "6.5605";
+
+            // Render Performance Page Math Formulas
+            try {
+                katex.render(
+                    "\\text{Accuracy (\\%)} = 100\\% - \\text{MAPE (\\%)} = 100\\% - \\left( \\frac{100\\%}{n} \\sum_{i=1}^{n} \\left| \\frac{y_i - \\hat{y}_i}{y_i} \\right| \\right)",
+                    document.getElementById("latex-accuracy-formula"),
+                    { throwOnError: false, displayMode: true }
+                );
+                katex.render(
+                    "R^2 = 1 - \\frac{\\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2}{\\sum_{i=1}^{n} (y_i - \\bar{y})^2}",
+                    document.getElementById("latex-r2-formula"),
+                    { throwOnError: false, displayMode: true }
+                );
+                katex.render(
+                    "\\text{MAE} = \\frac{1}{n} \\sum_{i=1}^{n} |y_i - \\hat{y}_i|",
+                    document.getElementById("latex-mae-formula"),
+                    { throwOnError: false, displayMode: true }
+                );
+            } catch (err) {
+                console.error("Error rendering KaTeX on performance page:", err);
+            }
         })
         .catch(err => console.error("Error loading metrics:", err));
 
