@@ -9,7 +9,7 @@
 
 ## Overview
 
-This project implements an hourly electricity consumption forecasting model using smart meter readings and weather station data. It trains and evaluates three machine learning models (**Linear Regression**, **Random Forest**, and **Gradient Boosting**) on a 7-feature dataset. 
+This project implements an hourly electricity consumption forecasting model using smart meter readings and weather station data. It trains and evaluates two machine learning models (**Linear Regression** and **Gradient Boosting**) on a 7-feature dataset. 
 
 Because the feature set includes the physical electrical variable **`Current Intensity (A)`**, the models achieve near-perfect prediction metrics (**R² = 99.96%**), directly modeling the physical law of electrical power. The project is served via a lightweight **FastAPI backend API** and an interactive, beautifully designed **Single Page Application (SPA)** dashboard.
 
@@ -124,9 +124,8 @@ Due to the physical linear relationship between active power, voltage, and curre
 |-------|:---:|:---:|:---:|:---:|
 | 🏆 **Gradient Boosting** *(Selected Best)* | **0.0134** | **0.0186** | **99.96% (0.9996)** | **2.46%** |
 | 🌲 **Linear Regression** | 0.0172 | 0.0226 | 99.94% (0.9994) | 2.94% |
-| ⚡ **Random Forest** | 0.0181 | 0.0370 | 99.83% (0.9983) | 3.01% |
 
-*Note: The FastAPI Predict page uses the best overall model (Gradient Boosting) to calculate power outputs. For transparency, it also displays a KaTeX equation and a step-by-step contribution breakdown using the highly interpretable weights of the Linear Regression model.*
+*Note: The FastAPI Predict page uses the best overall model (Gradient Boosting) to calculate power outputs, and also displays the hybrid model prediction and base model comparisons side-by-side.*
 
 ---
 
@@ -135,7 +134,7 @@ Due to the physical linear relationship between active power, voltage, and curre
 * **Overview View**: Showcases the best production model metrics and displays a **live SVG flowchart diagram** that dynamically highlights the best model and animates connection lines on metrics load.
 * **Exploratory Data View**: Includes full summary statistics and displays time series, distribution, correlation heatmaps, and seasonal averages.
 * **Performance View**: Summarizes model metrics side-by-side.
-* **Predict View**: Includes a 7-parameter prediction form, a dynamic LaTeX formula viewer, and a step-by-step contribution breakdown table showing exactly how each variable influenced the forecast.
+* **Predict View**: Includes a 7-parameter prediction form displaying the predicted consumption value and base model comparisons side-by-side.
 
 ---
 

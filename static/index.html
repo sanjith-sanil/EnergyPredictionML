@@ -155,29 +155,21 @@
                             <text x="100" y="130" class="node-subtitle font-white" id="flowchart-features-count">(7 Selected Features)</text>
                             
                             <!-- Arrows from Input to Models -->
-                            <path d="M 180 110 L 250 55" class="arrow" marker-end="url(#arrow)"/>
-                            <path d="M 180 110 L 250 110" class="arrow" marker-end="url(#arrow)"/>
-                            <path d="M 180 110 L 250 165" class="arrow" marker-end="url(#arrow)"/>
+                            <path d="M 180 110 L 250 65" class="arrow" marker-end="url(#arrow)"/>
+                            <path d="M 180 110 L 250 155" class="arrow" marker-end="url(#arrow)"/>
                             
                             <!-- Model 1: LR -->
                             <g id="flowchart-group-lr">
-                                <rect x="260" y="20" width="180" height="50" rx="8" class="node model-node" id="flowchart-rect-lr"/>
-                                <text x="350" y="45" class="node-title" id="flowchart-text-lr">Linear Regression</text>
-                                <text x="350" y="62" class="node-tag success" id="flowchart-tag-lr" style="display: none;">(Selected Best Model)</text>
+                                <rect x="260" y="40" width="180" height="50" rx="8" class="node model-node" id="flowchart-rect-lr"/>
+                                <text x="350" y="65" class="node-title" id="flowchart-text-lr">Linear Regression</text>
+                                <text x="350" y="82" class="node-tag success" id="flowchart-tag-lr" style="display: none;">(Selected Best Model)</text>
                             </g>
                             
-                            <!-- Model 2: RF -->
-                            <g id="flowchart-group-rf">
-                                <rect x="260" y="85" width="180" height="50" rx="8" class="node model-node" id="flowchart-rect-rf"/>
-                                <text x="350" y="110" class="node-title" id="flowchart-text-rf">Random Forest</text>
-                                <text x="350" y="127" class="node-tag success" id="flowchart-tag-rf" style="display: none;">(Selected Best Model)</text>
-                            </g>
-                            
-                            <!-- Model 3: GB -->
+                            <!-- Model 2: GB -->
                             <g id="flowchart-group-gb">
-                                <rect x="260" y="150" width="180" height="50" rx="8" class="node model-node" id="flowchart-rect-gb"/>
-                                <text x="350" y="175" class="node-title" id="flowchart-text-gb">Gradient Boosting</text>
-                                <text x="350" y="192" class="node-tag success" id="flowchart-tag-gb" style="display: none;">(Selected Best Model)</text>
+                                <rect x="260" y="130" width="180" height="50" rx="8" class="node model-node" id="flowchart-rect-gb"/>
+                                <text x="350" y="155" class="node-title" id="flowchart-text-gb">Gradient Boosting</text>
+                                <text x="350" y="172" class="node-tag success" id="flowchart-tag-gb" style="display: none;">(Selected Best Model)</text>
                             </g>
                             
                             <!-- Arrow from Best Model to Output -->
@@ -438,7 +430,6 @@
                                 <h3>Base Model Predictions:</h3>
                                 <ul>
                                     <li>Linear Regression: <span id="pred-lr">--</span></li>
-                                    <li>Random Forest: <span id="pred-rf">--</span></li>
                                     <li>Gradient Boosting: <span id="pred-gb">--</span></li>
                                 </ul>
                             </div>

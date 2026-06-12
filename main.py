@@ -22,7 +22,7 @@ import seaborn as sns
 import joblib
 
 from sklearn.linear_model import LinearRegression, Ridge
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
+from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import RandomizedSearchCV, TimeSeriesSplit
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
@@ -208,16 +208,16 @@ selected_features = [
 
 print(f"  Selected exact {len(selected_features)} features as specified.")
 
-# Compute Random Forest feature importance ranking on these features for downstream components
-print("\n[4.1] Computing Random Forest feature importances...")
+# Compute Gradient Boosting feature importance ranking on these features for downstream components
+print("\n[4.1] Computing Gradient Boosting feature importances...")
 X_sel = df[selected_features].values
 y_sel = df[TARGET].values
 
-rf_selector = RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)
-rf_selector.fit(X_sel, y_sel)
+gb_selector = GradientBoostingRegressor(n_estimators=100, random_state=42)
+gb_selector.fit(X_sel, y_sel)
 
 importances = pd.Series(
-    rf_selector.feature_importances_,
+    gb_selector.feature_importances_,
     index=selected_features
 ).sort_values(ascending=False)
 
@@ -255,29 +255,7 @@ X_test  = scaler.transform(X_test_raw)
 tscv_tune = TimeSeriesSplit(n_splits=3)
 tscv_meta = TimeSeriesSplit(n_splits=5)
 
-# --- Tune Random Forest ---
-print("\n[6.1] Tuning RandomForestRegressor (n_iter=5)...")
-rf_param_grid = {
-    'n_estimators':    [50, 100],
-    'max_depth':       [8, 10, 12],
-    'min_samples_split': [5, 10],
-    'min_samples_leaf':  [2, 4],
-    'max_features':    ['sqrt', 'log2', 0.5],
-}
-rf_search = RandomizedSearchCV(
-    RandomForestRegressor(random_state=42, n_jobs=-1),
-    param_distributions=rf_param_grid,
-    n_iter=5,
-    cv=tscv_tune,
-    scoring='r2',
-    random_state=42,
-    n_jobs=-1,
-    verbose=0
-)
-rf_search.fit(X_train, y_train)
-best_rf_params = rf_search.best_params_
-print(f"  Best RF parameters: {best_rf_params}")
-print(f"  Best RF CV R²: {rf_search.best_score_:.4f}")
+
 
 # --- Tune Gradient Boosting ---
 print("\n[6.2] Tuning GradientBoostingRegressor (n_iter=5)...")
@@ -313,7 +291,6 @@ print("="*70)
 # Base models with best hyperparameters
 base_models = {
     'Linear Regression':    LinearRegression(),
-    'Random Forest':        RandomForestRegressor(random_state=42, n_jobs=-1, **best_rf_params),
     'Gradient Boosting':    GradientBoostingRegressor(random_state=42, **best_gb_params),
 }
 
@@ -375,9 +352,9 @@ print("\n" + "="*70)
 print("  SECTION 8: SAVING ARTIFACTS")
 print("="*70)
 
-# 8.1 Build feature importance series (RF-based)
-rf_importance = pd.Series(
-    base_models['Random Forest'].feature_importances_,
+# 8.1 Build feature importance series (GB-based)
+gb_importance = pd.Series(
+    base_models['Gradient Boosting'].feature_importances_,
     index=selected_features
 ).sort_values(ascending=False)
 
@@ -386,7 +363,6 @@ test_results = pd.DataFrame({
     'Date':                        dates_test,
     'Electricity Consumption (kW)': y_test,
     'Linear Regression':            all_test_preds['Linear Regression'],
-    'Random Forest':                all_test_preds['Random Forest'],
     'Gradient Boosting':            all_test_preds['Gradient Boosting'],
     'Best Model Predictions':       best_preds,
 })
@@ -400,7 +376,7 @@ joblib.dump(scaler,                'models/scaler.pkl')
 joblib.dump(selected_features,     'models/feature_names.pkl')
 joblib.dump(metrics_df.to_dict(),  'models/metrics.pkl')
 joblib.dump(test_results,          'models/test_results.pkl')
-joblib.dump(rf_importance,         'models/feature_importance.pkl')
+joblib.dump(gb_importance,         'models/feature_importance.pkl')
 joblib.dump(best_model_name,       'models/best_model_name.pkl')
 print("  Model artifacts saved.")
 
@@ -462,13 +438,13 @@ plt.close(fig)
 print("  Saved: plots/residuals.png")
 
 # ── Plot 3: Feature Importance ──
-top_n = min(15, len(rf_importance))
-top_imp = rf_importance.head(top_n)
+top_n = min(15, len(gb_importance))
+top_imp = gb_importance.head(top_n)
 fig, ax = plt.subplots(figsize=(10, 6))
 colors_imp = plt.cm.viridis(np.linspace(0.2, 0.85, top_n))
 bars = ax.barh(top_imp.index[::-1], top_imp.values[::-1], color=colors_imp)
 ax.set_xlabel('Importance Score')
-ax.set_title('Feature Importance — Random Forest\n(Plain English Labels)', fontweight='bold')
+ax.set_title('Feature Importance — Gradient Boosting\n(Plain English Labels)', fontweight='bold')
 ax.grid(True, axis='x', alpha=0.3)
 for bar, val in zip(bars, top_imp.values[::-1]):
     ax.text(bar.get_width() + 0.001, bar.get_y() + bar.get_height()/2,

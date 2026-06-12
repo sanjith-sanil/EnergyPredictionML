@@ -94,9 +94,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             
             const models_ids = {
-                'Linear Regression': { rect: 'flowchart-rect-lr', tag: 'flowchart-tag-lr', text: 'flowchart-text-lr', y_start: 45 },
-                'Random Forest': { rect: 'flowchart-rect-rf', tag: 'flowchart-tag-rf', text: 'flowchart-text-rf', y_start: 110 },
-                'Gradient Boosting': { rect: 'flowchart-rect-gb', tag: 'flowchart-tag-gb', text: 'flowchart-text-gb', y_start: 175 }
+                'Linear Regression': { rect: 'flowchart-rect-lr', tag: 'flowchart-tag-lr', text: 'flowchart-text-lr', y_start: 65 },
+                'Gradient Boosting': { rect: 'flowchart-rect-gb', tag: 'flowchart-tag-gb', text: 'flowchart-text-gb', y_start: 155 }
             };
 
             Object.keys(models_ids).forEach(name => {
@@ -229,7 +228,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Set base model predictions
             document.getElementById("pred-lr").textContent = `${basePreds["Linear Regression"].toFixed(4)} kW`;
-            document.getElementById("pred-rf").textContent = `${basePreds["Random Forest"].toFixed(4)} kW`;
             document.getElementById("pred-gb").textContent = `${basePreds["Gradient Boosting"].toFixed(4)} kW`;
 
             // Style consumption level card

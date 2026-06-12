@@ -128,7 +128,7 @@ def get_metrics():
 
 @app.get("/api/feature-importance")
 def get_feature_importance():
-    """Returns Random Forest feature importance scores."""
+    """Returns Gradient Boosting feature importance scores."""
     if not isinstance(feature_importance, pd.Series) and not feature_importance:
          raise HTTPException(status_code=500, detail="Feature importance not loaded. Run main.py first.")
     
