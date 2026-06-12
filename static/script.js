@@ -52,10 +52,21 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch("/api/metrics")
         .then(res => res.json())
         .then(data => {
-            // Store best model name
-            bestModelName = data.best_model_name;
             const metrics = data.metrics;
             const models = Object.keys(metrics.MAE);
+
+            // Find the best model based on Method 1 (100 - MAPE)
+            let bestAccuracy = -1;
+            let bestModelByAcc = "";
+            models.forEach(model => {
+                const mapeVal = metrics["MAPE (%)"][model];
+                const accVal = 100 - mapeVal;
+                if (accVal > bestAccuracy) {
+                    bestAccuracy = accVal;
+                    bestModelByAcc = model;
+                }
+            });
+            bestModelName = bestModelByAcc; // Set this as our best model name
 
             // Find R-squared key dynamically (e.g. "R²", "R2", etc.)
             const r2Key = Object.keys(metrics).find(k => k.startsWith("R") && k !== "RMSE") || "R²";
@@ -63,18 +74,17 @@ document.addEventListener("DOMContentLoaded", function () {
             // Populate Overview Page showcases
             document.getElementById("best-model-name-title").textContent = "🏆 " + bestModelName;
             
-            const bestR2 = metrics[r2Key] ? metrics[r2Key][bestModelName] : 0;
             const bestMAE = metrics.MAE[bestModelName];
             const bestRMSE = metrics.RMSE[bestModelName];
             
-            document.getElementById("sidebar-r2-val").textContent = bestR2.toFixed(4);
-            document.getElementById("overview-r2").textContent = bestR2.toFixed(4);
+            document.getElementById("sidebar-r2-val").textContent = bestAccuracy.toFixed(2) + "%";
+            document.getElementById("overview-r2").textContent = bestAccuracy.toFixed(2) + "%";
             document.getElementById("overview-mae").textContent = bestMAE.toFixed(4);
             document.getElementById("overview-rmse").textContent = bestRMSE.toFixed(4);
 
             // Populate Model Performance Page Callout
             document.getElementById("performance-best-model-text").textContent = 
-                `Selected Production Model: ${bestModelName} (R² = ${bestR2.toFixed(4)})`;
+                `Selected Production Model: ${bestModelName} (Accuracy = ${bestAccuracy.toFixed(2)}%)`;
 
             // Update flowchart dynamically based on bestModelName
             const arrow = document.getElementById("flowchart-success-arrow");
@@ -125,13 +135,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 const mae = metrics.MAE[model];
                 const rmse = metrics.RMSE[model];
                 const mape = metrics["MAPE (%)"][model];
+                const accuracy = 100 - mape;
                 
                 row.innerHTML = `
                     <td><strong>${model}</strong>${model === bestModelName ? ' 🌟' : ''}</td>
+                    <td><strong>${accuracy.toFixed(2)}%</strong></td>
                     <td>${mae.toFixed(4)}</td>
                     <td>${rmse.toFixed(4)}</td>
                     <td>${r2.toFixed(4)}</td>
-                    <td>${mape.toFixed(2)}%</td>
                 `;
                 tbody.appendChild(row);
             });
