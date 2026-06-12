@@ -429,10 +429,10 @@
                 <!-- PREDICTION RESULT PANEL (Hidden by default) -->
                 <div class="predict-results-panel" id="prediction-result-panel">
                     
-                    <div class="grid grid-2 mt-20">
+                    <div class="grid grid-3 mt-20">
                         <div class="card result-show-card">
-                            <span class="result-label">PREDICTED POWER CONSUMPTION</span>
-                            <h1 id="result-predicted-kw">0.0000 kW</h1>
+                            <span class="result-label">SELECTED BEST MODEL (GB)</span>
+                            <h1 id="result-predicted-kw" style="font-size: 2.2rem; margin: 15px 0;">0.0000 kW</h1>
                             
                             <div class="base-preds-list">
                                 <h3>Base Model Predictions:</h3>
@@ -441,6 +441,20 @@
                                     <li>Random Forest: <span id="pred-rf">--</span></li>
                                     <li>Gradient Boosting: <span id="pred-gb">--</span></li>
                                 </ul>
+                            </div>
+                        </div>
+
+                        <div class="card result-show-card" style="background: linear-gradient(135deg, var(--sidebar-bg) 0%, #34495e 100%);">
+                            <span class="result-label">HYBRID ENSEMBLE (GB + LR)</span>
+                            <h1 id="result-hybrid-kw" style="font-size: 2.2rem; margin: 15px 0;">0.0000 kW</h1>
+                            
+                            <div class="base-preds-list" style="background-color: rgba(255,255,255,0.04);">
+                                <h3>Ensemble Formula:</h3>
+                                <p style="font-size: 13px; color: #b8d4e8; line-height: 1.4; margin-top: 5px;">
+                                    Calculated as the simple average of:
+                                    <br>• Gradient Boosting (50%)
+                                    <br>• Linear Regression (50%)
+                                </p>
                             </div>
                         </div>
 

@@ -177,6 +177,11 @@ def predict_consumption(inputs: PredictionInputs):
     # Best model prediction
     prediction = float(best_model.predict(input_scaled)[0])
 
+    # Hybrid prediction: 50% Gradient Boosting + 50% Linear Regression
+    lr_pred = base_preds.get('Linear Regression', prediction)
+    gb_pred = base_preds.get('Gradient Boosting', prediction)
+    hybrid_prediction = 0.5 * gb_pred + 0.5 * lr_pred
+
     # Extract weights & intercept for Selected Model (Linear Regression)
     lr_model = base_models.get('Linear Regression')
     if lr_model is None:
@@ -247,6 +252,7 @@ def predict_consumption(inputs: PredictionInputs):
 
     return JSONResponse(content={
         "prediction": prediction,
+        "hybrid_prediction": hybrid_prediction,
         "base_predictions": base_preds,
         "intercept": intercept,
         "sum_contributions": float(sum_contributions),

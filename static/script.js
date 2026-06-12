@@ -224,6 +224,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Set main prediction values
             document.getElementById("result-predicted-kw").textContent = `${prediction.toFixed(4)} kW`;
+            document.getElementById("result-hybrid-kw").textContent = `${data.hybrid_prediction.toFixed(4)} kW`;
             document.getElementById("result-predicted-kw-sub").textContent = `${prediction.toFixed(4)} kW`;
 
             // Set base model predictions
