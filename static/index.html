@@ -455,6 +455,18 @@
                             <p class="level-context">Typical range for this smart meter dataset is 0.5 – 4.0 kW/day.</p>
                         </div>
                     </div>
+                    
+                    <div class="card info-card mt-20" style="border-left: 6px solid var(--color-success);">
+                        <h3 style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-circle-info" style="color: var(--color-success);"></i> 
+                            Which prediction should you trust?
+                        </h3>
+                        <p style="font-size: 13px; line-height: 1.5; color: var(--text-secondary);">
+                            • <strong>Selected Best Model (Gradient Boosting):</strong> Best for standard forecasts within typical consumption ranges (statistically most accurate at <strong>97.26%</strong>).
+                            <br>
+                            • <strong>Hybrid Ensemble (GB + LR):</strong> Most robust for extreme or unseen conditions because it blends Gradient Boosting's seasonal intelligence with Linear Regression's physical linear laws.
+                        </p>
+                    </div>
 
 
 
